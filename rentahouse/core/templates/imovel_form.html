@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+- Imóvel - {{ titulo }}
+{% endblock title %}
+
+{% block content %}
+<form method="post" novalidate>
+    {% csrf_token %}
+    {% load filters %}
+    {{ form.as_p }}
+<div class="row">
+    <div class="col s12">
+        <button id='btn_salvar' type="submit"
+                class="waves-effect waves-light btn btn-primary orange">
+        <i class="material-icons left">save</i>Enviar anúncio
+        </button>
+        <a href=""
+           class="waves-effect waves-light grey darken-2 btn btn-primary">
+            <i class="material-icons left">cancel</i>
+            Voltar
+        </a>
+    </div>
+</div>
+</form>
+
+{% endblock content %}
+
+{% block script %}
+<script>
+    $( document ).ready(function() {
+        $('select').material_select();
+    });
+</script>
+{% endblock script %}

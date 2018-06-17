@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt_BR">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" rel="stylesheet" media="screen,projection"/>
+        <link href="{% static 'core/css/style.css' %}" rel="stylesheet"/>
+
+        <title>Rent a House{% block title %}{% endblock title %}</title>
+    </head>
+    <body class="white">
+        <main>
+            <ul id="ddwUsuario" class="dropdown-content">
+                <li>
+                    <a href="{#  url 'usuario_sair' #}" class="orange-text">
+                        <i class="left small material-icons">exit_to_app</i>Sair
+                    </a>
+                </li>
+            </ul>
+
+            <!--NAVBAR INICIO-->
+            <div class="navbar-fixed">
+                <nav>
+                    <div class="nav-wrapper light-blue lighten-1">
+                        <!--LOGO-->
+                        <a href="/" class="brand-logo left">Rent a House</a>
+
+                        <!--ICONE MENU MOBILE-->
+                        <a href="#" data-activates="menu-mobile" class="button-collapse right">
+                            <i class="material-icons">menu</i>
+                        </a>
+
+                        <!--MENU DEFAULT INICIO-->
+{#                        {% if request.user.is_authenticated %}#}
+                        <!--DDW USUARIO-->
+                        <ul class="right hide-on-med-and-down">
+                            <li>
+                                <a class="dropdown-button" href="" data-activates="ddwUsuario">
+                                    <i class="material-icons left">person</i>
+{#                                    {{ request.user.first_name }}#}
+                                    <i class="material-icons right">arrow_drop_down</i>
+                                </a>
+                            </li>
+                        </ul>
+{#                        {% endif %}#}
+                        <!--MENU DEFAULT FIM-->
+                    </div>
+                </nav>
+            </div>
+            <!--NAVBAR FIM-->
+
+            <!--MENU MOBILE INICIO-->
+            <ul id="menu-mobile" class="side-nav">
+{#                {% if request.user.is_authenticated %}#}
+                <!--DDW USUARIO-->
+                <ul class="collapsible collapsible-accordion">
+                    <li>
+                        <a class="collapsible-header orange-text">
+                            <i class="material-icons left orange-text">person</i>
+{#                                {{ request.user.first_name }}#}
+                            <i class="material-icons right orange-text">arrow_drop_down</i>
+                        </a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li>
+                                    <a class="orange-text" href="{# url 'usuario_sair' #}">
+                                        <i class="left small material-icons orange-text">exit_to_app</i>
+                                        Sair
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+{#                {% endif %}#}
+            </ul>
+            <!--MENU MOBILE FIM-->
+            {% block content %}
+
+            {% endblock %}
+        </main>
+
+        <!--  Scripts-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+        <script>
+        $( document ).ready(function() {
+            $(".button-collapse").sideNav({
+                edge: 'right',
+                draggable: true
+                }
+            );
+            $('.dropdown-button').dropdown({
+                constrainWidth: false,
+                belowOrigin: true
+                }
+            );
+        });
+        </script>
+        {% block script %}
+        {% endblock %}
+    </body>
+</html>
