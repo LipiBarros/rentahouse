@@ -7,25 +7,155 @@
 {% endblock title %}
 
 {% block content %}
-<form method="post" novalidate>
-    {% csrf_token %}
-    {% load filters %}
-    {{ form.as_p }}
-<div class="row">
-    <div class="col s12">
-        <button id='btn_salvar' type="submit"
-                class="waves-effect waves-light btn btn-primary orange">
-        <i class="material-icons left">save</i>Enviar anúncio
-        </button>
-        <a href=""
-           class="waves-effect waves-light grey darken-2 btn btn-primary">
-            <i class="material-icons left">cancel</i>
-            Voltar
-        </a>
-    </div>
-</div>
-</form>
+<div class="container">
+        <div class="row">
+            <div class="col s12 m10 offset-m1 l10 offset-l1">
+                <div class="section">
+                    <h4 class="medium">Imóvel <small>{{ titulo }}</small></h4>
+                </div>
+                <div class="divider"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m10 offset-m1 l10 offset-l1 margin-20">
+                <form method="post">
+                    {% csrf_token %}
+                    {% load filters %}
+                    <div class="row">
+                        <div class="input-field col s12 m4">
+                             {% if form.tipo.errors %}
+                                {{ form.tipo|add_validate_invalid_class_in_input }}
+                                {{ form.tipo|add_error_msg_in_label }}
+                             {% else %}
+                                {{ form.tipo }}
+                                {{ form.tipo.label_tag }}
+                             {% endif %}
+                        </div>
+                        <div class="input-field col s12 m2">
+                            {% if form.qt_quartos.errors %}
+                                {{ form.qt_quartos|add_validate_invalid_class_in_input }}
+                                {{ form.qt_quartos|add_error_msg_in_label }}
+                            {% else %}
+                                {{ form.qt_quartos }}
+                                {{ form.qt_quartos.label_tag }}
+                            {% endif %}
+                        </div>
+                        <div class="input-field col s12 m3">
+                            {% if form.area.errors %}
+                                {{ form.area|add_validate_invalid_class_in_input }}
+                                {{ form.area|add_error_msg_in_label }}
+                            {% else %}
+                                {{ form.area }}
+                                {{ form.area.label_tag }}
+                            {% endif %}
+                        </div>
+                        <div class="input-field col s12 m3">
+                            {% if form.qt_vagas_garagem.errors %}
+                                {{ form.qt_vagas_garagem|add_validate_invalid_class_in_input }}
+                                {{ form.qt_vagas_garagem|add_error_msg_in_label }}
+                            {% else %}
+                                {{ form.qt_vagas_garagem }}
+                                {{ form.qt_vagas_garagem.label_tag }}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m2">
+                            {% if form.vl_aluguel.errors %}
+                                {{ form.vl_aluguel|add_validate_invalid_class_in_input }}
+                                {{ form.vl_aluguel|add_error_msg_in_label }}
+                            {% else %}
+                                {{ form.vl_aluguel }}
+                                {{ form.vl_aluguel.label_tag }}
+                            {% endif %}
+                        </div>
+                        <div class="input-field col s12 m3">
+                            {% if form.telefone.errors %}
+                                {{ form.telefone|add_validate_invalid_class_in_input }}
+                                {{ form.telefone|add_error_msg_in_label }}
+                            {% else %}
+                                {{ form.telefone }}
+                                {{ form.telefone.label_tag }}
+                            {% endif %}
+                        </div>
+                        <div class="input-field col s12 m4">
+                            {% if form.email.errors %}
+                                {{ form.email|add_validate_invalid_class_in_input }}
+                                {{ form.email|add_error_msg_in_label }}
+                            {% else %}
+                                {{ form.email }}
+                                {{ form.email.label_tag }}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m3">
+                            {% if form.cep.errors %}
+                                {{ form.cep|add_validate_invalid_class_in_input }}
+                                {{ form.cep|add_error_msg_in_label }}
+                            {% else %}
+                                {{ form.cep }}
+                                {{ form.cep.label_tag }}
+                            {% endif %}
+                        </div>
+                        <div class="input-field col s12 m9">
+                            {% if form.endereco.errors %}
+                                {{ form.endereco|add_validate_invalid_class_in_input }}
+                                {{ form.endereco|add_error_msg_in_label }}
+                            {% else %}
+                                {{ form.endereco }}
+                                {{ form.endereco.label_tag }}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            {% if form.titulo.errors %}
+                                {{ form.titulo|add_validate_invalid_class_in_input }}
+                                {{ form.titulo|add_error_msg_in_label }}
+                             {% else %}
+                                {{ form.titulo }}
+                                {{ form.titulo.label_tag }}
+                             {% endif %}
+                        </div>
+                        <div class="input-field col s12">
+                            {% if form.descricao.errors %}
+                                {{ form.descricao|add_validate_invalid_class_in_input }}
+                                {{ form.descricao|add_error_msg_in_label }}
+                             {% else %}
+                                {{ form.descricao }}
+                                {{ form.descricao.label_tag }}
+                             {% endif %}
+                        </div>
+                    </div>
 
+                    {% if form.errors %}
+                    <div class="row">
+                        <div class="col s12">
+                        {% for error in form.non_field_errors %}
+                        <div style="color: red;">
+                            {{ error|escape }}
+                        </div>
+                        {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <div class="col s12">
+                        <button id='btn_salvar' type="submit"
+                                class="waves-effect waves-light btn btn-primary orange">
+                        <i class="material-icons left">save</i>Enviar anúncio
+                        </button>
+                        <a href=""
+                           class="waves-effect waves-light grey darken-2 btn btn-primary">
+                            <i class="material-icons left">cancel</i>
+                            Voltar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+</div>
 {% endblock content %}
 
 {% block script %}

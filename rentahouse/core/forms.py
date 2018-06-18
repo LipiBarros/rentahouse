@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, widgets
 from .models import Imovel
 
 
@@ -12,12 +12,10 @@ class ImovelForm(ModelForm):
             'qt_quartos',
             'area',
             'qt_vagas_garagem',
-            'vl_condominio',
             'vl_aluguel',
             'cep',
             'endereco',
             'telefone',
-            'email',
         ]
         labels = {
             'titulo': 'Título*',
@@ -26,10 +24,11 @@ class ImovelForm(ModelForm):
             'qt_quartos': 'Quartos*',
             'area': 'Área (m²)',
             'qt_vagas_garagem': 'Vagas na garagem',
-            'vl_condominio': 'Condomínio (R$)',
-            'vl_aluguel': 'Aluguel (R$)',
+            'vl_aluguel': 'Aluguel (R$)*',
             'cep': 'CEP*',
-            'endereco': 'Endereço',
+            'endereco': 'Endereço (não será exibido no anúncio)',
             'telefone': 'Telefone*',
-            'email': 'E-mail',
+        }
+        widgets = {
+            'descricao': widgets.Textarea(attrs={'class': 'materialize-textarea'})
         }
