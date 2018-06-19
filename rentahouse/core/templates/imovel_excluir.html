@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+- Imóvel - {{ titulo }}
+{% endblock title %}
+
+{% block content %}
+<div class="row">
+    <div class="col s12 m6 offset-m3 l6 offset-l3">
+        <div class="section">
+            <h4 class="medium">Imóvel <small>{{ titulo }}</small></h4>
+        </div>
+        <div class="divider"></div>
+    </div>
+</div>
+
+<div class="row">
+    <form method="post" class="col s12 m6 offset-m3 l6 offset-l3 flow-text">
+    {% csrf_token %}
+        <div class="row">
+            <div class="col s12 flow-text">
+                <p>Tem certeza que deseja excluir o seguinte anúncio ?</p>
+                <p><b>Título:</b> {{ imovel.titulo }}</p>
+                <p><b>Aluguel:</b> {{ imovel.vl_aluguel }}</p>
+                <br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m12">
+                <button type="submit" class="waves-effect waves-light btn btn-primary orange">
+                    <i class="material-icons left">check</i>Remover
+                </button>
+                <a href="{% url 'imovel_listar' %}" class="waves-effect waves-light grey darken-2 btn btn-primary">
+                    <i class="material-icons left">cancel</i>Cancelar
+                </a>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock content %}

@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+- Imóveis - Listar
+{% endblock title %}
+
+{% block content %}
+<div class="row">
+    <div class="col s12 m10 offset-m1 l10 offset-l1">
+        <div class="section">
+            <h4 class="medium">Imóveis <small>Listar</small></h4>
+        </div>
+        <div class="divider"></div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s12 m10 offset-m1 l10 offset-l1">
+        <nav>
+            <div class="nav-wrapper white">
+                <form method="get">
+                    <div class="input-field">
+                        <input id="pesquisa" name="pesquisa" type="search" value="{{ pesquisa }}"
+                               placeholder="Pesquise por título ou descrição">
+                        <label class="label-icon valign-wrapper" for="pesquisa">
+                            <i class="material-icons grey-text lighten-3">search</i>
+                        </label>
+                        <i class="material-icons">close</i>
+                    </div>
+                </form>
+            </div>
+        </nav>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s12 m10 offset-m1 l10 offset-l1">
+        <a href="{% url 'imovel_adicionar' %}" class="waves-effect waves-light btn btn-primary orange">
+            <i class="material-icons left">add</i>
+            Novo
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s12 m10 offset-m1 l10 offset-l1">
+        <table class="table bordered striped flow-text">
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Descrição</th>
+                    <th>Tipo</th>
+                    <th>Aluguel</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for imovel in pagina_atual %}
+                <tr>
+                    <td>{{ imovel.titulo }}</td>
+                    <td>{{ imovel.descricao }}</td>
+                    <td>{{ imovel.get_tipo_display }}</td>
+                    <td>{{ imovel.vl_aluguel }}</td>
+                    <td>
+                        <a href="{% url 'imovel_alterar' imovel.pk %}">
+                            <i class="material-icons orange-text" title="Alterar">edit</i>
+                        </a>
+                        <a href="{% url 'imovel_excluir' imovel.pk %}">
+                            <i class="material-icons orange-text" title="Excluir">delete</i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% include 'paginador.html' %}
+
+{% endblock content %}

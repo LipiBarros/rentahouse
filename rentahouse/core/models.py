@@ -5,10 +5,10 @@ from .validators import valida_cep
 class Imovel(models.Model):
 
     TIPO_CHOICES = (
-        ('Apartamento', 'Apartamento'),
-        ('Casa', 'Casa'),
-        ('Condomínio fechado', 'Condomínio fechado'),
-        ('Sobrado', 'Sobrado')
+        ('AP', 'Apartamento'),
+        ('CS', 'Casa'),
+        ('CF', 'Condomínio fechado'),
+        ('SB', 'Sobrado')
     )
     QUARTO_CHOICES = (
         (1, '1'),
@@ -22,7 +22,7 @@ class Imovel(models.Model):
     tipo = models.CharField(max_length=20, choices=TIPO_CHOICES, null=False, blank=False)
     qt_quartos = models.PositiveIntegerField(choices=QUARTO_CHOICES, blank=False)
     area = models.PositiveIntegerField(null=True, blank=True)
-    qt_vagas_garagem = models.PositiveIntegerField(null=False, blank=True)
+    qt_vagas_garagem = models.PositiveIntegerField(null=False, blank=False)
     vl_aluguel = models.DecimalField(max_digits=12, decimal_places=2, null=False, blank=False)
     cep = models.CharField(max_length=9, null=False, blank=False, validators=[valida_cep])
     endereco = models.CharField(max_length=250, null=True, blank=True)
