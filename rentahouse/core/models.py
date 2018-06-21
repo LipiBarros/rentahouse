@@ -1,5 +1,5 @@
 from django.db import models
-from .validators import valida_cep
+from .validators import valida_cep, valida_telefone
 
 
 class Imovel(models.Model):
@@ -60,7 +60,7 @@ class Imovel(models.Model):
     bairro = models.CharField(max_length=50, null=True, blank=True)
     municipio = models.CharField(max_length=50, null=True, blank=True)
     uf = models.CharField(max_length=2, null=True, blank=True, choices=UF_CHOICES)
-    telefone = models.CharField(max_length=15, null=False, blank=True)
+    telefone = models.CharField(max_length=15, null=False, blank=True, validators=[valida_telefone])
     dh_insercao = models.DateTimeField(auto_now_add=True)
     dh_alteracao = models.DateTimeField(auto_now=True)
     foto = models.FileField(null=True, blank=True, upload_to='anuncios/%Y/%m/%d/')

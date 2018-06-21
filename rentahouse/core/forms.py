@@ -1,8 +1,23 @@
 from django.forms import ModelForm, widgets
+from .cleaners import manter_digitos
 from .models import Imovel
 
 
-class ImovelForm(ModelForm):
+class ImovelFormClean(ModelForm):
+    def clean_telefone(self):
+        telefone = self.cleaned_data['telefone']
+        return manter_digitos(telefone)
+
+    def clean_cep(self):
+        cep = self.cleaned_data['cep']
+        return manter_digitos(cep)
+
+    def clean(self):
+        self.cleaned_data = super().clean()
+        return self.cleaned_data
+
+
+class ImovelForm(ImovelFormClean):
     class Meta:
         model = Imovel
         fields = [
