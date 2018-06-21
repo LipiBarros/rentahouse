@@ -40,8 +40,11 @@ def listar(request, template_name='imovel_listar.html'):
     pesquisa = request.GET.get("pesquisa")
     if pesquisa:
         imoveis = Imovel.objects.filter(
-            Q(titulo__icontains=pesquisa) |
-            Q(descricao__icontains=pesquisa)
+            Q(logradouro__icontains=pesquisa) |
+            Q(bairro__icontains=pesquisa) |
+            Q(municipio__icontains=pesquisa) |
+            Q(uf__icontains=pesquisa) |
+            Q(cep__icontains=pesquisa)
         )
     else:
         pesquisa = ''

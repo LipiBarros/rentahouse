@@ -23,7 +23,7 @@
                 <form method="get">
                     <div class="input-field">
                         <input id="pesquisa" name="pesquisa" type="search" value="{{ pesquisa }}"
-                               placeholder="Pesquise por título ou descrição">
+                               placeholder="Busca por endereço">
                         <label class="label-icon valign-wrapper" for="pesquisa">
                             <i class="material-icons grey-text lighten-3">search</i>
                         </label>
@@ -70,7 +70,8 @@
                                 {{ imovel.telefone }}
                                 </span>
                             </p>
-                            <p><b>Local: </b>{{ imovel.bairro }} - {{ imovel.uf }}</p>
+                            <p><b>Endereço: </b>{{ imovel.logradouro }} - {{ imovel.bairro }} - {{ imovel.municipio }} - {{ imovel.uf }}</p>
+                            <p><b>CEP: </b><span class="cep">{{ imovel.cep }}</span> </p>
                             <span><b><u>Descrição</u></b></span>
                             <p>{{ imovel.descricao }}</p>
                         </div>
