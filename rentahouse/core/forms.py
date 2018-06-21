@@ -14,8 +14,12 @@ class ImovelForm(ModelForm):
             'qt_vagas_garagem',
             'vl_aluguel',
             'cep',
-            'endereco',
+            'logradouro',
+            'bairro',
+            'municipio',
+            'uf',
             'telefone',
+            'foto',
         ]
         labels = {
             'titulo': 'Título*',
@@ -23,12 +27,16 @@ class ImovelForm(ModelForm):
             'tipo': 'Tipo imóvel*',
             'qt_quartos': 'Quartos*',
             'area': 'Área (m²)',
-            'qt_vagas_garagem': 'Vagas na garagem',
+            'qt_vagas_garagem': 'Vagas na garagem*',
             'vl_aluguel': 'Aluguel (R$)*',
             'cep': 'CEP*',
-            'endereco': 'Endereço (não será exibido no anúncio)',
+            'logradouro': 'Logradouro',
+            'bairro': 'Bairro',
+            'municipio': 'Município',
+            'uf': 'UF',
             'telefone': 'Telefone*',
+            'foto': 'Imagem',
         }
         widgets = {
-            'descricao': widgets.Textarea(attrs={'class': 'materialize-textarea'})
+            'descricao': widgets.Textarea(attrs={'class': 'materialize-textarea'}),
         }

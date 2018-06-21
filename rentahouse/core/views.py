@@ -1,11 +1,8 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import ImovelForm, Imovel
 from django.db.models import Q
-
-
-def home(request):
-    return render(request, 'index.html')
 
 
 def paginador(request, qt_por_pagina, lista):
@@ -39,15 +36,6 @@ def paginador(request, qt_por_pagina, lista):
     return paginacao
 
 
-def adicionar(request, template_name='imovel_form.html'):
-    imovel = ImovelForm(request.POST or None)
-    if imovel.is_valid():
-        imovel.save()
-        return redirect('/')
-
-    return render(request, template_name, {'titulo': 'Novo', 'form': imovel})
-
-
 def listar(request, template_name='imovel_listar.html'):
     pesquisa = request.GET.get("pesquisa")
     if pesquisa:
@@ -72,6 +60,18 @@ def listar(request, template_name='imovel_listar.html'):
     return render(request, template_name, template_data)
 
 
+@login_required
+def adicionar(request, template_name='imovel_form.html'):
+    imovel = ImovelForm(request.POST, request.FILES)
+    if imovel.is_valid():
+        imovel.save()
+        return redirect('imovel_listar')
+    else:
+        imovel = ImovelForm()
+    return render(request, template_name, {'titulo': 'Novo', 'form': imovel})
+
+
+@login_required
 def excluir(request, pk, template_name='imovel_excluir.html'):
     imovel = Imovel.objects.get(pk=pk)
     if request.method == 'POST':
@@ -81,10 +81,11 @@ def excluir(request, pk, template_name='imovel_excluir.html'):
     return render(request, template_name, {'titulo': 'Excluir', 'imovel': imovel})
 
 
+@login_required
 def alterar(request, pk, template_name='imovel_form.html'):
     imovel = get_object_or_404(Imovel, pk=pk)
     if request.method == "POST":
-        imovelForm = ImovelForm(request.POST, instance=imovel)
+        imovelForm = ImovelForm(request.POST, request.FILES, instance=imovel)
         if imovelForm.is_valid():
             imovelForm.save()
             return redirect('imovel_listar')

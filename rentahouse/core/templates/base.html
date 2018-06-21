@@ -6,7 +6,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" rel="stylesheet" media="screen,projection"/>
-        <link href="{% static 'core/css/style.css' %}" rel="stylesheet"/>
 
         <title>Rent a House{% block title %}{% endblock title %}</title>
     </head>
@@ -14,18 +13,53 @@
         <main>
             <ul id="ddwUsuario" class="dropdown-content">
                 <li>
-                    <a href="{% url 'imovel_listar' %}" class="orange-text">
-                        <i class="left material-icons">settings</i>Gerenciar
-                    </a>
-                </li>
-                <li>
-                    <a href="{#  url 'usuario_sair' #}" class="orange-text">
+                    <a href="{% url 'usuario_sair' %}" class="orange-text">
                         <i class="left small material-icons">exit_to_app</i>Sair
                     </a>
                 </li>
             </ul>
 
             <!--NAVBAR INICIO-->
+            <ul id="menu-mobile" class="side-nav">
+                <!--DDW USUARIO-->
+                <ul class="collapsible collapsible-accordion">
+                    {% if not request.user.is_authenticated %}
+                    <li>
+                        <a class="collapsible-header orange-text" href="{% url 'usuario_entrar' %}">
+                            <i class="left material-icons orange-text">person</i>Login
+                        </a>
+                    </li>
+
+                    {% endif %}
+                    {% if request.user.is_authenticated %}
+                    <li>
+                        <a class="collapsible-header orange-text" href="{% url 'imovel_listar' %}">
+                            <i class="left material-icons orange-text">settings</i>Gerenciar
+                        </a>
+                    </li>
+                    <li>
+                        <a class="collapsible-header orange-text">
+                            <i class="material-icons left orange-text">person</i>
+                            {#                                {{ request.user.first_name }}#} Luis
+                            <i class="material-icons right orange-text">arrow_drop_down</i>
+                        </a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li>
+                                    <a class="orange-text" href="{% url 'usuario_sair' %}">
+                                        <i class="left small material-icons orange-text">exit_to_app</i>
+                                        Sair
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    {% endif %}
+                </ul>
+            </ul>
+            <!--NAVBAR FIM-->
+
+            <!--MENU MOBILE INICIO-->
             <div class="navbar-fixed">
                 <nav>
                     <div class="nav-wrapper light-blue lighten-1">
@@ -38,50 +72,39 @@
                         </a>
 
                         <!--MENU DEFAULT INICIO-->
-{#                        {% if request.user.is_authenticated %}#}
+                        {% if request.user.is_authenticated %}
                         <!--DDW USUARIO-->
                         <ul class="right hide-on-med-and-down">
                             <li>
                                 <a class="dropdown-button" href="" data-activates="ddwUsuario">
                                     <i class="material-icons left">person</i>
-{#                                    {{ request.user.first_name }}#} Luis
+                                    {{ request.user }}
                                     <i class="material-icons right">arrow_drop_down</i>
                                 </a>
                             </li>
                         </ul>
+                        <ul class="right hide-on-med-and-down">
+                            <li>
+                                <a href="{% url 'imovel_listar' %}">
+                                    <i class="left material-icons">settings</i>Gerenciar
+                                </a>
+                            </li>
+                        </ul>
+                        {% endif %}
+                        {% if not request.user.is_authenticated %}
+                        <ul class="right hide-on-med-and-down">
+                            <li>
+                                <a href="{% url 'usuario_entrar' %}">
+                                    <i class="left material-icons">person</i>Login
+                                </a>
+                            </li>
+                        </ul>
+                        {% endif %}
 
-{#                        {% endif %}#}
                         <!--MENU DEFAULT FIM-->
                     </div>
                 </nav>
             </div>
-            <!--NAVBAR FIM-->
-
-            <!--MENU MOBILE INICIO-->
-            <ul id="menu-mobile" class="side-nav">
-{#                {% if request.user.is_authenticated %}#}
-                <!--DDW USUARIO-->
-                <ul class="collapsible collapsible-accordion">
-                    <li>
-                        <a class="collapsible-header orange-text">
-                            <i class="material-icons left orange-text">person</i>
-{#                                {{ request.user.first_name }}#}
-                            <i class="material-icons right orange-text">arrow_drop_down</i>
-                        </a>
-                        <div class="collapsible-body">
-                            <ul>
-                                <li>
-                                    <a class="orange-text" href="{# url 'usuario_sair' #}">
-                                        <i class="left small material-icons orange-text">exit_to_app</i>
-                                        Sair
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-{#                {% endif %}#}
-            </ul>
             <!--MENU MOBILE FIM-->
             {% block content %}
 

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+- Entrar
+{% endblock title %}
+
+{% block content %}
+<div class="section"></div>
+<main style="text-align: center">
+    <h5>Informe seu acesso</h5>
+        <div class="row">
+            <form class="col s12 m6 offset-m3 l4 offset-l4" method="post" action="{% url 'usuario_entrar' %}?next={{ redirect_to }}" novalidate="novalidate">
+                {% csrf_token %}
+                <div class='row'>
+                    <div class='col s12'>
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class='input-field col s12'>
+                        <input type="text" name="nome_usuario" id="nome_usuario">
+                        <label for='nome_usuario'>Digite seu usuário</label>
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class='input-field col s12'>
+                        <input type="password" name="senha" id="senha">
+                        <label for='senha'>Digite sua senha</label>
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <button type='submit' name='btn_login' class="btn btn-large waves-effect orange col s12">
+                        <i class="small material-icons col s2 offset-s3">send</i>
+                        <span class="col s2">Entrar</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+</main>
+<div class="section"></div>
+{% endblock content %}
+
+{% block script %}
+{% if messages %}
+<script>
+    $(document).ready(function(){
+    {% for message in messages %}
+        Materialize.toast('{{ message }}' ,4000);
+    {% endfor %}
+    });
+</script>
+{% endif %}
+{% endblock script %}

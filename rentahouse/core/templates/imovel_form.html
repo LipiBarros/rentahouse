@@ -18,9 +18,35 @@
         </div>
         <div class="row">
             <div class="col s12 m10 offset-m1 l10 offset-l1 margin-20">
-                <form method="post">
+                <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {% load filters %}
+                    <div class="row">
+                        <div class="input-field col s12">
+                            {% if form.titulo.errors %}
+                                {{ form.titulo|add_validate_invalid_class_in_input }}
+                                {{ form.titulo|add_error_msg_in_label }}
+                             {% else %}
+                                {{ form.titulo }}
+                                {{ form.titulo.label_tag }}
+                             {% endif %}
+                        </div>
+                        <div class="input-field col s12">
+                            {% if form.descricao.errors %}
+                                {{ form.descricao|add_validate_invalid_class_in_input }}
+                                {{ form.descricao|add_error_msg_in_label }}
+                             {% else %}
+                                {{ form.descricao }}
+                                {{ form.descricao.label_tag }}
+                             {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <label>Imagem:</label><br>
+                            {{ form.foto }}
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="input-field col s12 m4">
                              {% if form.tipo.errors %}
@@ -60,7 +86,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="input-field col s12 m2">
+                        <div class="input-field col s12 m4">
                             {% if form.vl_aluguel.errors %}
                                 {{ form.vl_aluguel|add_validate_invalid_class_in_input }}
                                 {{ form.vl_aluguel|add_error_msg_in_label }}
@@ -69,7 +95,7 @@
                                 {{ form.vl_aluguel.label_tag }}
                             {% endif %}
                         </div>
-                        <div class="input-field col s12 m3">
+                        <div class="input-field col s12 m4">
                             {% if form.telefone.errors %}
                                 {{ form.telefone|add_validate_invalid_class_in_input }}
                                 {{ form.telefone|add_error_msg_in_label }}
@@ -79,17 +105,6 @@
                             {% endif %}
                         </div>
                         <div class="input-field col s12 m4">
-                            {% if form.email.errors %}
-                                {{ form.email|add_validate_invalid_class_in_input }}
-                                {{ form.email|add_error_msg_in_label }}
-                            {% else %}
-                                {{ form.email }}
-                                {{ form.email.label_tag }}
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12 m3">
                             {% if form.cep.errors %}
                                 {{ form.cep|add_validate_invalid_class_in_input }}
                                 {{ form.cep|add_error_msg_in_label }}
@@ -98,34 +113,44 @@
                                 {{ form.cep.label_tag }}
                             {% endif %}
                         </div>
-                        <div class="input-field col s12 m9">
-                            {% if form.endereco.errors %}
-                                {{ form.endereco|add_validate_invalid_class_in_input }}
-                                {{ form.endereco|add_error_msg_in_label }}
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12 m4">
+                            {% if form.logradouro.errors %}
+                                {{ form.logradouro|add_validate_invalid_class_in_input }}
+                                {{ form.logradouro|add_error_msg_in_label }}
                             {% else %}
-                                {{ form.endereco }}
-                                {{ form.endereco.label_tag }}
+                                {{ form.logradouro }}
+                                {{ form.logradouro.label_tag }}
                             {% endif %}
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            {% if form.titulo.errors %}
-                                {{ form.titulo|add_validate_invalid_class_in_input }}
-                                {{ form.titulo|add_error_msg_in_label }}
-                             {% else %}
-                                {{ form.titulo }}
-                                {{ form.titulo.label_tag }}
-                             {% endif %}
+                        <div class="input-field col s12 m3">
+                            {% if form.bairro.errors %}
+                                {{ form.bairro|add_validate_invalid_class_in_input }}
+                                {{ form.bairro|add_error_msg_in_label }}
+                            {% else %}
+                                {{ form.bairro }}
+                                {{ form.bairro.label_tag }}
+                            {% endif %}
                         </div>
-                        <div class="input-field col s12">
-                            {% if form.descricao.errors %}
-                                {{ form.descricao|add_validate_invalid_class_in_input }}
-                                {{ form.descricao|add_error_msg_in_label }}
-                             {% else %}
-                                {{ form.descricao }}
-                                {{ form.descricao.label_tag }}
-                             {% endif %}
+                        <div class="input-field col s12 m3">
+                            {% if form.municipio.errors %}
+                                {{ form.municipio|add_validate_invalid_class_in_input }}
+                                {{ form.municipio|add_error_msg_in_label }}
+                            {% else %}
+                                {{ form.municipio }}
+                                {{ form.municipio.label_tag }}
+                            {% endif %}
+                        </div>
+                        <div class="input-field col s12 m2">
+                            {% if form.uf.errors %}
+                                {{ form.uf|add_validate_invalid_class_in_input }}
+                                {{ form.uf|add_error_msg_in_label }}
+                            {% else %}
+                                {{ form.uf }}
+                                {{ form.uf.label_tag }}
+                            {% endif %}
                         </div>
                     </div>
 
@@ -146,7 +171,7 @@
                                 class="waves-effect waves-light btn btn-primary orange">
                         <i class="material-icons left">save</i>Enviar anúncio
                         </button>
-                        <a href=""
+                        <a href="{% url 'imovel_listar' %}"
                            class="waves-effect waves-light grey darken-2 btn btn-primary">
                             <i class="material-icons left">cancel</i>
                             Voltar
@@ -164,4 +189,5 @@
         $('select').material_select();
     });
 </script>
+<script src="{% static 'core/js/busca_endereco.js' %}"></script>
 {% endblock script %}

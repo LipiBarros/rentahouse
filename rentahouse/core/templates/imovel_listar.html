@@ -3,14 +3,14 @@
 {% load static %}
 
 {% block title %}
-- Imóveis - Listar
+- Imóveis
 {% endblock title %}
 
 {% block content %}
 <div class="row">
     <div class="col s12 m10 offset-m1 l10 offset-l1">
         <div class="section">
-            <h4 class="medium">Imóveis <small>Listar</small></h4>
+            <h4 class="medium">Imóveis</h4>
         </div>
         <div class="divider"></div>
     </div>
@@ -34,7 +34,7 @@
         </nav>
     </div>
 </div>
-
+{% if request.user.is_authenticated %}
 <div class="row">
     <div class="col s12 m10 offset-m1 l10 offset-l1">
         <a href="{% url 'imovel_adicionar' %}" class="waves-effect waves-light btn btn-primary orange">
@@ -43,39 +43,46 @@
         </a>
     </div>
 </div>
+{% endif %}
 
 <div class="row">
     <div class="col s12 m10 offset-m1 l10 offset-l1">
-        <table class="table bordered striped flow-text">
-            <thead>
-                <tr>
-                    <th>Título</th>
-                    <th>Descrição</th>
-                    <th>Tipo</th>
-                    <th>Aluguel</th>
-                </tr>
-            </thead>
-            <tbody>
+        <div class="row">
             {% for imovel in pagina_atual %}
-                <tr>
-                    <td>{{ imovel.titulo }}</td>
-                    <td>{{ imovel.descricao }}</td>
-                    <td>{{ imovel.get_tipo_display }}</td>
-                    <td>{{ imovel.vl_aluguel }}</td>
-                    <td>
-                        <a href="{% url 'imovel_alterar' imovel.pk %}">
-                            <i class="material-icons orange-text" title="Alterar">edit</i>
-                        </a>
-                        <a href="{% url 'imovel_excluir' imovel.pk %}">
-                            <i class="material-icons orange-text" title="Excluir">delete</i>
-                        </a>
-                    </td>
-                </tr>
+                <div class="col s12 m6">
+                    <div class="card z-depth-3">
+                        <div class="card-image">
+                            <img src="{{ imovel.foto.url }}">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title"><b>{{ imovel.titulo }}</b></span>
+                            <p><b>Tipo: </b>{{ imovel.get_tipo_display }}</p>
+                            <p><b>Área: </b>{{ imovel.area }} m²</p>
+                            <p><b>Quartos: </b>{{ imovel.qt_quartos }}</p>
+                            <p><b>Vaga garagem: </b>{{ imovel.qt_vagas_garagem}}</p>
+                            <p><b>Aluguel: </b>R$ {{ imovel.vl_aluguel }}</p>
+                            <p><b>Telefone: </b>{{ imovel.telefone }}</p>
+                            <p><b>Local: </b>{{ imovel.bairro }} - {{ imovel.uf }}</p>
+                            <span><b><u>Descrição</u></b></span>
+                            <p>{{ imovel.descricao }}</p>
+                        </div>
+                        {% if request.user.is_authenticated %}
+                        <div class="card-action">
+                            <a href="{% url 'imovel_alterar' imovel.pk %}" class="btn orange">
+                                <i class="left material-icons">edit</i>Editar
+                            </a>
+                            <a href="{% url 'imovel_excluir' imovel.pk %}" class="btn orange">
+                                <i class="left material-icons">delete</i>Excluir
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
             {% endfor %}
-            </tbody>
-        </table>
+        </div>
     </div>
 </div>
+
 
 {% include 'paginador.html' %}
 
